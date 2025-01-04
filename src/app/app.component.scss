@@ -1,0 +1,102 @@
+/* Основной контейнер компонента */
+.container {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стилизация заголовка */
+h1 {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Стилизация кнопок */
+button {
+  padding: 10px 20px;
+  margin: 10px 5px 20px 0;
+  border: none;
+  background-color: #007BFF;
+  color: #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+
+  /* Эффект при наведении */
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  /* Дополнительные стили для разных типов кнопок */
+  &.add-button {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #1e7e34;
+    }
+  }
+}
+
+/* Стилизация списка */
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+
+  li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    color: #555555;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* Убираем нижнюю границу у последнего элемента */
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+/* Стилизация поля ввода */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+
+  /* Изменение цвета рамки при фокусе */
+  &:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+}
+
+/* Дополнительные стили для скрытия элементов */
+.hidden {
+  display: none;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+    margin: 20px;
+  }
+
+  button {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  input {
+    font-size: 16px;
+  }
+}
