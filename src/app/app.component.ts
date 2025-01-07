@@ -1,35 +1,30 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, interval } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, FormsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'] // Исправлено с styleUrl на styleUrls
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   subscription: Subscription | null = null;
 
-  stream$ = new Observable<string>((observer) => {
-    let counter = 0;
-    const intervalId = setInterval(() => {
-      observer.next(`stream ${counter++}`);
-    }, 1000);
-
-    // Функция очистки, вызываемая при отписке
-    return () => {
-      clearInterval(intervalId);
-      console.log('Интервал очищен');
-    };
-  });
+  // Используем оператор interval для создания потока
+  stream$: Observable<string> = interval(1000).pipe(
+    map(counter => `stream ${counter}`)
+  );
 
   public startStream(): void {
     if (!this.subscription) { // Предотвращаем множественные подписки
-      this.subscription = this.stream$.subscribe((data) => {
-        console.log(data);
+      this.subscription = this.stream$.subscribe({
+        next: (data) => console.log(data),
+        error: (err) => console.error('Ошибка потока:', err),
+        complete: () => console.log('Поток завершен')
       });
       console.log('Поток запущен');
     }
@@ -39,9 +34,9 @@ export class AppComponent {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = null;
-      console.log('Поток завершен');
+      console.log('Поток остановлен');
     } else {
-      console.log('Нет активного потока для завершения');
+      console.log('Нет активного потока для остановки');
     }
   }
 }
