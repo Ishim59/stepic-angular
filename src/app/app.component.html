@@ -1,2 +1,18 @@
 <h1>Stream</h1>
-<button (click)="startStream()">start stream</button>
+<div class="button-group">
+  <button (click)="startStream()" [disabled]="subscription">Start Stream</button>
+  <button (click)="stopStream()" [disabled]="!subscription">Stop Stream</button>
+</div>
+
+@if(coordinates){
+<div class="coordinates">
+  <div class="coordinate-box">
+    <span class="label">X:</span>
+    <span class="value">{{ coordinates.x }}</span>
+  </div>
+  <div class="coordinate-box">
+    <span class="label">Y:</span>
+    <span class="value">{{ coordinates.y }}</span>
+  </div>
+</div>
+}
