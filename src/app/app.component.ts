@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { Observable, Subscription, interval } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, Subscription, from } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -14,29 +13,20 @@ import { map } from "rxjs/operators";
 export class AppComponent {
   subscription: Subscription | null = null;
 
-  // Используем оператор interval для создания потока
-  stream$: Observable<string> = interval(1000).pipe(
-    map(counter => `stream ${counter}`)
-  );
+  // Создаём поток из массива чисел
+  stream$: Observable<number> = from([1, 2, 3, 4, 5]);
 
   public startStream(): void {
     if (!this.subscription) { // Предотвращаем множественные подписки
       this.subscription = this.stream$.subscribe({
-        next: (data) => console.log(data),
+        next: (data) => console.log(`Получено: ${data}`),
         error: (err) => console.error('Ошибка потока:', err),
-        complete: () => console.log('Поток завершен')
+        complete: () => {
+          console.log('Поток завершен');
+          this.subscription = null; // Сбрасываем подписку после завершения
+        }
       });
       console.log('Поток запущен');
-    }
-  }
-
-  public stopStream(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-      console.log('Поток остановлен');
-    } else {
-      console.log('Нет активного потока для остановки');
     }
   }
 }
