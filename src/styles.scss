@@ -72,31 +72,3 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Стили для конкретных случаев */
-.case-1 {
-  border-left: 5px solid #e74c3c;
-}
-
-.case-2 {
-  border-left: 5px solid #f1c40f;
-}
-
-.case-3 {
-  border-left: 5px solid #9b59b6; /* Исправлено с case-2 на case-3 */
-}
-
-.default-case {
-  border-left: 5px solid #95a5a6;
-}
-
-/* Адаптивный дизайн */
-@media (max-width: 600px) {
-  #dataInput, .message-box {
-    width: 80%;
-  }
-
-  .message-box {
-    font-size: 16px;
-  }
-}

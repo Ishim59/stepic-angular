@@ -1,21 +1,11 @@
-<input
-  id="dataInput"
-  type="number"
-  min="0"
-  (input)="changeDataValue($event)"
-  placeholder="Введите значение">
+<div class="container">
+  <input
+    id="dataInput"
+    type="number"
+    min="0"
+    (input)="changeDataValue($event)"
+    placeholder="Введите год через запятую">
+</div>
 
-@switch (dataValue()) {
-  @case (1){
-    <div class="message-box case-1 show">Если переменная содержит еденицу</div>
-  }
-  @case (2){
-    <div class="message-box case-2 show">Если переменная содержит двойку</div>
-  }
-  @case (3){
-    <div class="message-box case-2 show">Если переменная содержит тройку</div>
-  }
-  @default {
-    <div class="message-box default-case show">Нет совоподений</div>
-  }
-}
+<div class="message-box show">Умноженное значение: {{stream$ | async}}</div>
+
