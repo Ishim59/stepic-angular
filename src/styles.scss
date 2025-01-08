@@ -1,1 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+/* Общие стили */
+body {
+  font-family: 'Arial', sans-serif;
+
+  /* Анимированный градиентный фон */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Ключевые кадры для анимации фона */
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Контейнер для центрирования содержимого */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Стили для поля ввода */
+#dataInput {
+  width: 250px;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border: 2px solid #3498db;
+  border-radius: 25px;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  font-size: 16px;
+}
+
+#dataInput::placeholder {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+#dataInput:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+/* Стили для блока сообщения */
+.message-box {
+  width: 300px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 18px;
+  color: #2c3e50;
+
+  /* Анимация появления */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.message-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Стили для конкретных случаев */
+.case-1 {
+  border-left: 5px solid #e74c3c;
+}
+
+.case-2 {
+  border-left: 5px solid #f1c40f;
+}
+
+.case-3 {
+  border-left: 5px solid #9b59b6; /* Исправлено с case-2 на case-3 */
+}
+
+.default-case {
+  border-left: 5px solid #95a5a6;
+}
+
+/* Адаптивный дизайн */
+@media (max-width: 600px) {
+  #dataInput, .message-box {
+    width: 80%;
+  }
+
+  .message-box {
+    font-size: 16px;
+  }
+}
