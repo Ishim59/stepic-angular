@@ -1,4 +1,4 @@
-import {Component, computed, OnInit, signal} from '@angular/core';
+import {Component, computed, effect, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
@@ -15,6 +15,12 @@ export class AppComponent {
   secondValue = signal(0);
   sumOfTwoSignals = computed(() => this.firstValue() + this.secondValue());
 
+  constructor() {
+    effect(()=>{
+      const sum = this.sumOfTwoSignals();
+      alert(`Сумма изменилась на: ${sum}`)
+    })
+  }
 
   public increaseByOneFirstValue(): void {
     this.firstValue.update((value)=> value + 1)
