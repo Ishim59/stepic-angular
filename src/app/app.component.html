@@ -1,11 +1,12 @@
-<div class="container">
-  <input
-    id="dataInput"
-    type="number"
-    min="0"
-    (input)="changeDataValue($event)"
-    placeholder="Введите год через запятую">
-</div>
 
-<div class="message-box show">Умноженное значение: {{stream$ | async}}</div>
+<button (click)="increaseByOneFirstValue()">+</button>
+<button (click)="decreaseByOneFirstValue()">-</button>
+<div class="message-box show">Значение первого signal: {{firstValue()}}</div>
 
+<button (click)="increaseByOneSecondValue()">+</button>
+<button (click)="decreaseByOneSecondValue()">-</button>
+<div class="message-box show">Значение второго signal: {{secondValue()}}</div>
+
+<hr>
+
+<div class="message-box show">Значение суммы signal: {{sumOfTwoSignals()}}</div>

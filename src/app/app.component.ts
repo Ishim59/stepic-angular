@@ -1,8 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
-import { map, Observable, of } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -12,22 +11,31 @@ import { map, Observable, of } from "rxjs";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  dataValue = signal(0);
-  stream$!: Observable<number>;
+  firstValue = signal(0);
+  secondValue = signal(0);
+  sumOfTwoSignals = signal(0);
 
-  public changeDataValue(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const value = Number(input.value);
-    this.dataValue.set(value);
-    this.stream$ = of(this.dataValue()).pipe(
-      map(value => value * 2) // Умножаем значение на два
-    );
-  }
+  ngOnInit(): void {
+    this.sumOfTwoSignals.set(this.firstValue() + this.secondValue()); // Данное событие
+    // происходит один раз, как следствие, мы не увидим увеличение суммы.
+    // В следующих уроках мы рассмотрим, как сделать вычисляемое значение
+    // на основании сигналов.
+  };
 
-  ngOnInit() {
-    // Инициализация stream$ при загрузке компонента, если необходимо
-    this.stream$ = of(this.dataValue()).pipe(
-      map(value => value * 2)
-    );
-  }
+  public increaseByOneFirstValue(): void {
+    this.firstValue.update((value)=> value + 1)
+  };
+
+  public decreaseByOneFirstValue(): void {
+    this.firstValue.update((value)=> value - 1)
+  };
+
+  public increaseByOneSecondValue(): void {
+    this.secondValue.update((value)=> value + 1)
+  };
+
+  public decreaseByOneSecondValue(): void {
+    this.secondValue.update((value)=> value - 1)
+  };
+
 }
