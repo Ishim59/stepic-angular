@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, computed, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
@@ -10,17 +10,11 @@ import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@a
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   firstValue = signal(0);
   secondValue = signal(0);
-  sumOfTwoSignals = signal(0);
+  sumOfTwoSignals = computed(() => this.firstValue() + this.secondValue());
 
-  ngOnInit(): void {
-    this.sumOfTwoSignals.set(this.firstValue() + this.secondValue()); // Данное событие
-    // происходит один раз, как следствие, мы не увидим увеличение суммы.
-    // В следующих уроках мы рассмотрим, как сделать вычисляемое значение
-    // на основании сигналов.
-  };
 
   public increaseByOneFirstValue(): void {
     this.firstValue.update((value)=> value + 1)
@@ -37,5 +31,4 @@ export class AppComponent implements OnInit {
   public decreaseByOneSecondValue(): void {
     this.secondValue.update((value)=> value - 1)
   };
-
 }
