@@ -1,4 +1,4 @@
-import {Component, input, Input} from '@angular/core';
+import {Component, EventEmitter, output, Output} from '@angular/core';
 
 @Component({
   selector: 'app-children',
@@ -8,7 +8,20 @@ import {Component, input, Input} from '@angular/core';
   styleUrl: './children.component.scss'
 })
 export class ChildrenComponent {
-    @Input() parentStringInputOldSyntax = 'Инициализационная строка, на случай если данные не будут получены.';
+  stringChildren: string = 'Данная строка находилась в компоненте "ребенке",' +
+    'теперь она стала доступна в родительском компоненте';
 
-    parentStringInputNewSyntax = input<string>();
+  @Output() clicked = new EventEmitter(); //Данная конструкция позволяет
+  //создавать событие которое пробросит данные в родитель.
+
+  clickedNewSyntax = output<string>();
+
+  public sendParentSting(): void {
+    this.clicked.emit(this.stringChildren); //Через функцию emit мы сообщаем что
+    //действие произошло
+  };
+
+  public sendParentStingNewSyntax(): void {
+    this.clicked.emit(this.stringChildren);
+  };
 }

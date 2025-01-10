@@ -1,9 +1,7 @@
 <div class="parent-header">Компонент родитель</div>
 <div class="parent-description">
-  Данные содержатся только в app.component, но для отображения они передаются
-  в app-children уже там они отображаются!
+  {{parentString}}
 </div>
 
-<app-children [parentStringInputNewSyntax]="parentString"
-              [parentStringInputOldSyntax]="parentString">
-</app-children>
+<app-children (clicked)="onChildClicked($event)"
+              (clickedNewSyntax)="onChildrenClickedNewSyntax($event)"    ></app-children>

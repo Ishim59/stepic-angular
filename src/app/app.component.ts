@@ -13,4 +13,12 @@ import {ChildrenComponent} from "./children/children.component";
 })
 export class AppComponent {
     parentString: string = "Строка которая изначально находилась в родителе."
+
+  onChildClicked($event: any) {
+    this.parentString = $event;
+  }
+
+  public onChildrenClickedNewSyntax($event: string) {
+    this.parentString = $event;
+  };
 }
