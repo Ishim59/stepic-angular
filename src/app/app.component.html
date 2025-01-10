@@ -1,81 +1,14 @@
 <div class="container">
-  <h1>Демонстрация встроенных пайпов в Angular</h1>
+  <h1>Демонстрация кастомного pipe в Angular</h1>
 
-  <!-- Date Pipe -->
-  <div class="card">
-    <h2>Date Pipe</h2>
-    <p>
-      Текущее время (по умолчанию): <strong>{{ dateValue | date }}</strong>
-    </p>
-    <p>
-      Форматированная дата (dd.MM.yyyy HH:mm):
-      <strong>{{ dateValue | date: 'dd.MM.yyyy HH:mm' }}</strong>
-    </p>
-  </div>
+  <input class="textInput" [(ngModel)]="text">
 
-  <!-- UpperCase / LowerCase / TitleCase Pipes -->
   <div class="card">
-    <h2>Case Pipes</h2>
+    <h2>Case Reverse</h2>
     <p>
       Исходный текст: <strong>{{ text }}</strong>
     </p>
-    <p>UpperCase: <strong>{{ text | uppercase }}</strong></p>
-    <p>LowerCase: <strong>{{ text | lowercase }}</strong></p>
-    <p>TitleCase: <strong>{{ text | titlecase }}</strong></p>
+    <p>UpperCase: <strong>{{ text | reverse }}</strong></p>
   </div>
 
-  <!-- Slice Pipe -->
-  <div class="card">
-    <h2>Slice Pipe</h2>
-    <p>Массив: <strong>{{ items }}</strong></p>
-    <p>Срез (c 1 по 3 элемент):
-      <strong>{{ items | slice:1:3 }}</strong>
-    </p>
-  </div>
-
-  <!-- Number Pipe -->
-  <div class="card">
-    <h2>Number Pipe</h2>
-    <p>Число: <strong>{{ amount }}</strong></p>
-    <p>
-      Форматированное число (1.2-2):
-      <strong>{{ amount | number:'1.2-2' }}</strong>
-    </p>
-  </div>
-
-  <!-- Currency Pipe -->
-  <div class="card">
-    <h2>Currency Pipe</h2>
-    <p>Сумма: <strong>{{ amount }}</strong></p>
-    <p>
-      Валюта (RUB):
-      <strong>{{ amount | currency:'RUB':'symbol':'1.2-2' }}</strong>
-    </p>
-  </div>
-
-  <!-- Percent Pipe -->
-  <div class="card">
-    <h2>Percent Pipe</h2>
-    <p>Доля: <strong>{{ percentage }}</strong></p>
-    <p>
-      Формат (1.2-2):
-      <strong>{{ percentage | percent:'1.2-2' }}</strong>
-    </p>
-  </div>
-
-  <!-- JSON Pipe -->
-  <div class="card">
-    <h2>JSON Pipe</h2>
-    <p>Объект user:</p>
-    <pre>{{ user | json }}</pre>
-  </div>
-
-  <!-- Truncate long text (Slice Pipe на строке) -->
-  <div class="card">
-    <h2>Slice Pipe на длинном тексте</h2>
-    <p>Исходный текст:</p>
-    <p>{{ longText }}</p>
-    <p><strong>Укороченный (первые 50 символов):</strong></p>
-    <p>{{ longText | slice:0:50 }}...</p>
-  </div>
 </div>

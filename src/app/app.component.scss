@@ -1,38 +1,136 @@
+/* styles.css */
+
+/* Импортируем современный шрифт из Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  /* Цветовая палитра */
+  --primary-color: #4A90E2;
+  --secondary-color: #FFFFFF;
+  --background-color: #F5F7FA;
+  --card-background: #FFFFFF;
+  --text-color: #333333;
+  --accent-color: #50E3C2;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
+
+/* Анимированный градиентный фон */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.5s ease;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .container {
   max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: sans-serif;
-  color: #333;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон для контейнера */
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: background 0.5s ease, transform var(--transition-speed);
 }
 
 h1 {
   text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 2.5rem;
+  transition: color var(--transition-speed), transform var(--transition-speed);
+}
+
+.textInput {
+  width: 100%;
+  padding: 14px 24px;
   margin-bottom: 30px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.textInput:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(80, 227, 194, 0.3);
+  transform: scale(1.02);
 }
 
 .card {
-  background-color: #f9f9f9;
-  border-left: 5px solid #007bff;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 15px;
+  background-color: var(--card-background);
+  padding: 20px 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 30px;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  background-color: #f0f0f0;
 }
 
 .card h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: #007bff;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
-p {
-  margin: 5px 0;
+.card p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  transition: color var(--transition-speed), transform var(--transition-speed);
 }
 
-pre {
-  background-color: #e8e8e8;
-  padding: 10px;
-  overflow-x: auto;
-  border-radius: 4px;
+.card strong {
+  color: var(--accent-color);
+  transition: color var(--transition-speed);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .card h2 {
+    font-size: 1.5rem;
+  }
+
+  .textInput {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .card p {
+    font-size: 1rem;
+  }
 }
