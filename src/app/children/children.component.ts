@@ -8,7 +8,4 @@ import {Component} from '@angular/core';
   styleUrl: './children.component.scss'
 })
 export class ChildrenComponent {
-  sayHello(): void {
-    alert('Привет из компонента "ребенка" компонента!');
-  }
 }

@@ -1,0 +1,25 @@
+/* Стилизация заголовка */
+h1.children {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  margin: 40px 0;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Анимация при изменении цвета */
+h1.children.color-changed {
+  background: rgba(255, 105, 180, 0.7);
+  transform: scale(1.05);
+}
+
+/* Дополнительные эффекты */
+h1.children:hover {
+  transform: translateY(-10px);
+  background: rgba(0, 0, 0, 0.6);
+}

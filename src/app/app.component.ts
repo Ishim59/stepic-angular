@@ -1,4 +1,4 @@
-import {Component,  ViewChild} from '@angular/core';
+import {Component, ElementRef, Renderer2} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import {ChildrenComponent} from "./children/children.component";
@@ -11,9 +11,9 @@ import {ChildrenComponent} from "./children/children.component";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild(ChildrenComponent, { static: false }) childComponent!: ChildrenComponent;
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
 
-  triggerChildrenMethod() {
-    this.childComponent.sayHello();
+  setColorChildren() {
+    this.renderer.setStyle(this.el.nativeElement.querySelector('.children'), 'background-color', 'red');
   }
 }
