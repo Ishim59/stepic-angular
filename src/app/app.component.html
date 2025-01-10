@@ -1,12 +1,9 @@
+<div class="parent-header">Компонент родитель</div>
+<div class="parent-description">
+  Данные содержатся только в app.component, но для отображения они передаются
+  в app-children уже там они отображаются!
+</div>
 
-<button (click)="increaseByOneFirstValue()">+</button>
-<button (click)="decreaseByOneFirstValue()">-</button>
-<div class="message-box show">Значение первого signal: {{firstValue()}}</div>
-
-<button (click)="increaseByOneSecondValue()">+</button>
-<button (click)="decreaseByOneSecondValue()">-</button>
-<div class="message-box show">Значение второго signal: {{secondValue()}}</div>
-
-<hr>
-
-<div class="message-box show">Значение суммы signal: {{sumOfTwoSignals()}}</div>
+<app-children [parentStringInputNewSyntax]="parentString"
+              [parentStringInputOldSyntax]="parentString">
+</app-children>

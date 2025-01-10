@@ -1,0 +1,45 @@
+.child-header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+  padding: 15px 0;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  border-radius: 8px 8px 0 0;
+}
+
+.child-description {
+  font-size: 1rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.data-display {
+  font-size: 1rem;
+  color: #34495e;
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-left: 4px solid #3498db;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Выделение компонента ребенок */
+:host {
+  display: block;
+  background-color: #ffffff;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+:host:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
