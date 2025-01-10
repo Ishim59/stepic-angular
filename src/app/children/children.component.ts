@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, input} from '@angular/core';
 
 @Component({
   selector: 'app-children',
@@ -8,4 +8,5 @@ import {Component} from '@angular/core';
   styleUrl: './children.component.scss'
 })
 export class ChildrenComponent {
+  item = input<string>()
 }

@@ -2,4 +2,7 @@
   <button (click)="setColorChildren()">Кнопка находится у родителя, но задает цвет элементу, который находится у ребенка.</button>
 </div>
 
-<app-children></app-children>
+@for(item of mockList; track item){
+  <app-children [item]="item"></app-children>
+}
+
