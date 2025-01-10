@@ -22,6 +22,6 @@ export class ChildrenComponent {
   };
 
   public sendParentStingNewSyntax(): void {
-    this.clicked.emit(this.stringChildren);
+    this.clickedNewSyntax.emit(this.stringChildren);
   };
 }
