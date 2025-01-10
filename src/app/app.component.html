@@ -1,7 +1,5 @@
-<div class="parent-header">Компонент родитель</div>
-<div class="parent-description">
-  {{parentString}}
+<div>
+  <button (click)="triggerChildrenMethod()">Вызвать метод у компонента ребенка.</button>
 </div>
 
-<app-children (clicked)="onChildClicked($event)"
-              (clickedNewSyntax)="onChildrenClickedNewSyntax($event)"    ></app-children>
+<app-children></app-children>
