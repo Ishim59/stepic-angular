@@ -1,8 +1,5 @@
-<div>
-  <button (click)="setColorChildren()">Кнопка находится у родителя, но задает цвет элементу, который находится у ребенка.</button>
+<div appRunAway>
+<button>
+  Наведи на меня курсор!
+</button>
 </div>
-
-@for(item of mockList; track item){
-  <app-children [item]="item"></app-children>
-}
-
