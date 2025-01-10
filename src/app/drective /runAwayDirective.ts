@@ -24,7 +24,7 @@ export class RunAwayDirective {
    * сработает transition, и движение будет плавным.
    */
   @HostListener('mouseover', ['$event'])
-  onMouseOver(event: MouseEvent) {
+  onMouseOver() {
     // Задайте нужные вам размеры области "побега"
     const maxX = 800;
     const maxY = 600;
