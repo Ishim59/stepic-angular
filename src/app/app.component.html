@@ -1,14 +1,18 @@
 <div class="container">
-  <h1>Демонстрация кастомного pipe в Angular</h1>
-
-  <input class="textInput" [(ngModel)]="text">
-
-  <div class="card">
-    <h2>Case Reverse</h2>
-    <p>
-      Исходный текст: <strong>{{ text }}</strong>
-    </p>
-    <p>UpperCase: <strong>{{ text | reverse }}</strong></p>
-  </div>
-
+  <h1>Демонстрация работы for/*ngFor</h1>
+  <!-- Современный подход к написанию -->
+  @for(item of mockArr; track item; let i = $index){
+    <div class="card" (click)="showDataItem(i, item)">
+      <div>Номер элемента массива: {{i}}</div>
+      <div>Карточка содержащая массив элемента: {{item}}</div>
+    </div>
+  }
+<hr>
+  <!-- Устаревший подход -->
+  <ng-container *ngFor="let item of mockArr; let i = index">
+    <div class="card" (click)="showDataItem(i, item)">
+      <div>Номер элемента массива: {{i}}</div>
+      <div>Карточка содержащая массив элемента: {{item}}</div>
+    </div>
+  </ng-container>
 </div>
