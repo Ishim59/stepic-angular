@@ -1,31 +1,15 @@
 <div class="container">
-
-  <h1>Пример работы ngTemplateOutlet</h1>
-
+  <h1>Демонстрация работы [ngStyle]</h1>
   <div>
-    <button (click)="changeVisible()">
-      @if(isVisible){
-        Скрыть все шаблоны
-      } @else {
-        Показать все шаблоны
+    <button (click)="changeActive()">
+      @if(!isActive){
+        Включить
+      }@else{
+        Выключить
       }</button>
   </div>
 
-  <div>
-  <input
-    [(ngModel)]="deleteElementNumber"
-    type="number"
-    placeholder="Введите число от 1 до 3">
-  <button (click)="deleteElement()">Удалить элемент</button>
-  </div>
-
-  @if (isVisible){
-    @for(tmpl of templates; track tmpl){
-        <ng-container [ngTemplateOutlet]="tmpl"></ng-container>
-    }
-  }
-
-  <ng-template #template1><div>{{content1}}</div></ng-template>
-  <ng-template #template2><div>{{content2}}</div></ng-template>
-  <ng-template #template3><div>{{content3}}</div></ng-template>
+<div [ngStyle]="{'color': isActive ? 'green' : 'red'}">
+  Этот текст меняет цвет в зависимости от переменной isActive.
+</div>
 </div>
