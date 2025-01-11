@@ -1,17 +1,31 @@
 <div class="container">
-  <h1>Демонстрация работы if/*ngIf</h1>
+
+  <h1>Пример работы ngTemplateOutlet</h1>
 
   <div>
-    @if(isVisibleContentNewDirective){
-      <h3>Контент стал доступен в директиве с современным написанием</h3>
+    <button (click)="changeVisible()">
+      @if(isVisible){
+        Скрыть все шаблоны
+      } @else {
+        Показать все шаблоны
+      }</button>
+  </div>
+
+  <div>
+  <input
+    [(ngModel)]="deleteElementNumber"
+    type="number"
+    placeholder="Введите число от 1 до 3">
+  <button (click)="deleteElement()">Удалить элемент</button>
+  </div>
+
+  @if (isVisible){
+    @for(tmpl of templates; track tmpl){
+        <ng-container [ngTemplateOutlet]="tmpl"></ng-container>
     }
-    <button (click)="changeIsVisibleContentNewDirective()">Изменить состояние переменной isVisibleContentNewDirective</button>
-  </div>
+  }
 
-  <div>
-    <ng-container *ngIf="isVisibleContentOldDirective">
-      <h3>Контент стал видимым в директиве с устаревшим написанием</h3>
-    </ng-container>
-    <button (click)="changeIsVisibleContentOldDirective()">Изменить состояние переменной isVisibleContentOldDirective</button>
-  </div>
+  <ng-template #template1><div>{{content1}}</div></ng-template>
+  <ng-template #template2><div>{{content2}}</div></ng-template>
+  <ng-template #template3><div>{{content3}}</div></ng-template>
 </div>

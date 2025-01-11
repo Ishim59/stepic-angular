@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import { Component, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import {CommonModule} from "@angular/common";
-
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -11,15 +10,32 @@ import {CommonModule} from "@angular/common";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  isVisibleContentNewDirective: boolean = false;
-  isVisibleContentOldDirective:boolean = false;
+export class AppComponent implements AfterViewInit {
+  deleteElementNumber: number = 0;
+  content1 = 'Содержимое content 1';
+  content2 = 'Содержимое content 2';
+  content3 = 'Содержимое content 3';
 
-  public changeIsVisibleContentNewDirective(): void {
-    this.isVisibleContentNewDirective = !this.isVisibleContentNewDirective;
+  isVisible = true;
+  templates: TemplateRef<any>[] = [];
+
+  @ViewChild('template1') template1!: TemplateRef<any>;
+  @ViewChild('template2') template2!: TemplateRef<any>;
+  @ViewChild('template3') template3!: TemplateRef<any>;
+
+  ngAfterViewInit() {
+    this.templates = [this.template1, this.template2, this.template3];
   };
 
-  public changeIsVisibleContentOldDirective(): void {
-    this.isVisibleContentOldDirective = !this.isVisibleContentOldDirective;
+  public deleteElement(): void {
+    if(this.deleteElementNumber > 0 && this.deleteElementNumber < 4) {
+      this.templates.splice(this.deleteElementNumber - 1, 1);
+    } else {
+      alert("Число выходит за рамки от 1 до 3")
+    }
+  };
+
+  changeVisible() {
+    this.isVisible = !this.isVisible;
   };
 }
