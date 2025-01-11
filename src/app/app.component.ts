@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms";
 import {CommonModule} from "@angular/common";
 
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,9 +12,14 @@ import {CommonModule} from "@angular/common";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  mockArr: string[] = ['первый элемент массива', 'Второй элемент массива', 'Третий элемент массива'];
+  isVisibleContentNewDirective: boolean = false;
+  isVisibleContentOldDirective:boolean = false;
 
-  public showDataItem(i: number, item: string) {
-    alert(`Номер карты на которую нажали ${i}, карта содержит следующее значение: ${item}.`)
+  public changeIsVisibleContentNewDirective(): void {
+    this.isVisibleContentNewDirective = !this.isVisibleContentNewDirective;
+  };
+
+  public changeIsVisibleContentOldDirective(): void {
+    this.isVisibleContentOldDirective = !this.isVisibleContentOldDirective;
   };
 }
