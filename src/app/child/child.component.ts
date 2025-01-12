@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {JsonPipe} from "@angular/common";
 
 @Component({
@@ -10,14 +10,10 @@ import {JsonPipe} from "@angular/common";
   templateUrl: './child.component.html',
   styleUrl: './child.component.scss'
 })
-export class ChildComponent implements OnChanges, DoCheck {
-  @Input() item: any;
+export class ChildComponent implements AfterViewInit {
 
-  ngDoCheck() {
-    alert('DoCheck смог определить изменения внутри обьекта');
+  ngAfterViewInit() {
+    alert('ngAfterViewInit сработал после того как проекция была определена');
   };
 
-  ngOnChanges(changes: SimpleChanges) {
-    alert(`Сработал ngOnChanges ${changes}`);
-  };
 }

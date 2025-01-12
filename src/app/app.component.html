@@ -1,7 +1,6 @@
 <div class="container">
-  <h1>Работа DoCheck</h1>
-    <app-child [item]="item"></app-child>
-  <div>
-    <button (click)="changeItem()">Change item</button>
-  </div>
+  <h1>Работа AfterContentInit</h1>
+    <app-child>
+      <h1>Внутри тега компонента "ребенка" мы можем передать контент, который будет внутри "ребенка" являться проекцией этого места.</h1>
+    </app-child>
 </div>
