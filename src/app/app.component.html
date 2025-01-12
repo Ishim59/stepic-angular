@@ -1,6 +1,10 @@
 <div class="container">
-  <h1>Пример работы service. Общий счетчик: {{getTotalCounter()}}</h1>
-
-  <app-first></app-first>
-  <app-second></app-second>
+  <h1>Пример шаблонной формы</h1>
+  <div>
+  <form #myForm='ngForm' (ngSubmit)="onSubmit(myForm)">
+    <input type="text" name="firstField" placeholder="Введите имя!" ngModel required>
+    <input type="email" name="email" placeholder="Введите email" ngModel required>
+    <button type="submit">Показать введенные значения</button>
+  </form>
+  </div>
 </div>
