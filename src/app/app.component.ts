@@ -1,21 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import {ChildComponent} from "./child/child.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule, CommonModule],
+  imports: [RouterOutlet, FormsModule, CommonModule, ChildComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  constructor() {
-    alert('Сработал конструктор')
-  };
+export class AppComponent{
+  isVisibleChild = false;
 
-  ngOnInit() {
-    alert('Сработал метод OnInit')
-  };
+  changeVisibleChild(){
+    this.isVisibleChild = !this.isVisibleChild;
+  }
 }
