@@ -1,6 +1,9 @@
 <div class="container">
-  <h1>Работа AfterContentInit</h1>
-    <app-child>
-      <h1>Внутри тега компонента "ребенка" мы можем передать контент, который будет внутри "ребенка" являться проекцией этого места.</h1>
-    </app-child>
+  <h1>Пример рабоыт ngClass</h1>
+  <div>
+    <button (click)="changeActive()"
+            [ngClass]="{'active': isActive}">
+      После нажатия кнопка изменит свой class который содержит несколько стилей.
+    </button>
+  </div>
 </div>
