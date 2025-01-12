@@ -11,10 +11,23 @@ import {ChildComponent} from "./child/child.component";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
-  isVisibleChild = false;
+export class AppComponent {
+  item: any = {
+    data: {
+      value: 'old value'
+    }
+  };
 
-  changeVisibleChild(){
-    this.isVisibleChild = !this.isVisibleChild;
-  }
+  // changeItem(){  Данный подход позволит определить изменения методу onChanges так как происходит
+  //   this.item = { создание копии объекта и меняется ссылка объекта.
+  //     ...this.item,
+  //     data: {
+  //       value: 'new value'
+  //     }
+  //   };
+  // }
+
+  changeItem(){
+    this.item.data.value = 'new value';
+  };
 }

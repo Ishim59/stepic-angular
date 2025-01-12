@@ -1,13 +1,7 @@
 <div class="container">
-  <h1>Работа OnDestroy</h1>
-  @if(isVisibleChild){
-    <div>
-    <button (click)="changeVisibleChild()">Удалить компонент child.</button>
-    </div>
-  <app-child></app-child>
-  } @else {
-    <div>
-    <button (click)="changeVisibleChild()">Отобразить компонент child.</button>
-    </div>
-  }
+  <h1>Работа DoCheck</h1>
+    <app-child [item]="item"></app-child>
+  <div>
+    <button (click)="changeItem()">Change item</button>
+  </div>
 </div>
