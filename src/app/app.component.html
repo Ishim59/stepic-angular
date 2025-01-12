@@ -1,9 +1,6 @@
 <div class="container">
-  <h1>Пример рабоыт ngClass</h1>
-  <div>
-    <button (click)="changeActive()"
-            [ngClass]="{'active': isActive}">
-      После нажатия кнопка изменит свой class который содержит несколько стилей.
-    </button>
-  </div>
+  <h1>Пример работы service. Общий счетчик: {{getTotalCounter()}}</h1>
+
+  <app-first></app-first>
+  <app-second></app-second>
 </div>
