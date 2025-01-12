@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { NgForm } from "@angular/forms";
 import { RouterOutlet } from '@angular/router';
-import {FormsModule, NgForm} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,11 @@ import { CommonModule } from "@angular/common";
 })
 export class AppComponent {
   onSubmit(myForm: NgForm) {
-    console.log(`Вы ввели имя ${myForm.value.firstField}, а так же email ${myForm.value.email}`);
-    alert(`Вы ввели имя ${myForm.value.firstField}, а так же email ${myForm.value.email}`)
-  };
+    if (myForm.valid) {
+      const { firstName, lastName, email, age, phone } = myForm.value;
+      console.log(`Имя: ${firstName}, Фамилия: ${lastName}, Email: ${email}, Возраст: ${age}, Телефон: ${phone}`);
+      alert(`Регистрация успешна! \nИмя: ${firstName} \nФамилия: ${lastName} \nEmail: ${email} \nВозраст: ${age} \nТелефон: ${phone}`);
+      myForm.reset();
+    }
+  }
 }
