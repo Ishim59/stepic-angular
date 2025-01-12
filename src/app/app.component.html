@@ -1,15 +1,9 @@
 <div class="container">
-  <h1>Демонстрация работы [ngStyle]</h1>
+  <h1>Component parent</h1>
   <div>
-    <button (click)="changeActive()">
-      @if(!isActive){
-        Включить
-      }@else{
-        Выключить
-      }</button>
+  <input placeholder="Измените данные которые передаються в компонент ребенок"
+         [(ngModel)]="item"/>
   </div>
 
-<div [ngStyle]="{'color': isActive ? 'green' : 'red'}">
-  Этот текст меняет цвет в зависимости от переменной isActive.
-</div>
+<app-child [itemParent]="item"></app-child>
 </div>
