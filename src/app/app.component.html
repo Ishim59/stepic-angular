@@ -1,8 +1,10 @@
 <div class="container">
-  <h1>Расширенная форма регистрации (реактивная)</h1>
+  <h1>Расширенная форма регистрации (реактивная с валидацией)</h1>
 
+  <!-- Подключаем форму к FormGroup -->
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
+    <!-- Имя -->
     <div>
       <label for="firstName">Имя:</label>
       <input
@@ -11,8 +13,21 @@
         formControlName="firstName"
         placeholder="Введите имя"
       >
+      @if(myForm.get('firstName')?.errors && myForm.get('firstName')?.touched){
+        @if(myForm.get('firstName')?.errors?.['required']){
+          <div class="error">
+            Поле "Имя" обязательно к заполнению.
+          </div>
+        }
+        @if(myForm.get('firstName')?.errors?.['minlength']){
+          <div class="error">
+            Поле "Имя" должно содержать минимум 2 символа.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Фамилия -->
     <div>
       <label for="lastName">Фамилия:</label>
       <input
@@ -21,8 +36,16 @@
         formControlName="lastName"
         placeholder="Введите фамилию"
       >
+      @if(myForm.get('lastName')?.errors && myForm.get('lastName')?.touched){
+        @if(myForm.get('lastName')?.errors?.['required']){
+          <div class="error">
+            Поле "Фамилия" обязательно к заполнению.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Email -->
     <div>
       <label for="email">Email:</label>
       <input
@@ -31,8 +54,21 @@
         formControlName="email"
         placeholder="Введите email"
       >
+      @if(myForm.get('email')?.errors && myForm.get('email')?.touched){
+        @if(myForm.get('email')?.errors?.['required']){
+          <div class="error">
+            Поле "Email" обязательно к заполнению.
+          </div>
+        }
+        @if(myForm.get('email')?.errors?.['email']){
+          <div class="error">
+            Укажите корректный email.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Пароль -->
     <div>
       <label for="password">Пароль:</label>
       <input
@@ -41,8 +77,21 @@
         formControlName="password"
         placeholder="Введите пароль"
       >
+      @if(myForm.get('password')?.errors && myForm.get('password')?.touched){
+        @if(myForm.get('password')?.errors?.['required']){
+          <div class="error">
+            Поле "Пароль" обязательно к заполнению.
+          </div>
+        }
+        @if(myForm.get('password')?.errors?.['minlength']){
+          <div class="error">
+            Пароль должен содержать минимум 6 символов.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Подтверждение пароля -->
     <div>
       <label for="confirmPassword">Подтвердите пароль:</label>
       <input
@@ -51,8 +100,21 @@
         formControlName="confirmPassword"
         placeholder="Подтвердите пароль"
       >
+      @if(myForm.get('confirmPassword')?.errors && myForm.get('confirmPassword')?.touched){
+        @if(myForm.get('confirmPassword')?.errors?.['required']){
+          <div class="error">
+            Поле "Подтверждение пароля" обязательно.
+          </div>
+        }
+        @if(myForm.get('confirmPassword')?.errors?.['passwordMismatch']){
+          <div class="error">
+            Пароли не совпадают.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Возраст -->
     <div>
       <label for="age">Возраст:</label>
       <input
@@ -61,18 +123,44 @@
         formControlName="age"
         placeholder="Введите возраст"
       >
+      @if(myForm.get('age')?.errors && myForm.get('age')?.touched){
+        @if(myForm.get('age')?.errors?.['required']){
+          <div class="error">
+            Поле "Возраст" обязательно к заполнению.
+          </div>
+        }
+        @if(myForm.get('age')?.errors?.['min']){
+          <div class="error">
+            Возраст не может быть меньше 18.
+          </div>
+        }
+        @if(myForm.get('age')?.errors?.['max']){
+          <div class="error">
+            Возраст не может быть больше 65.
+          </div>
+        }
+      }
     </div>
 
+    <!-- Телефон -->
     <div>
       <label for="phone">Телефон:</label>
       <input
         type="tel"
         id="phone"
         formControlName="phone"
-        placeholder="Введите телефон"
+        placeholder="Введите телефон (10 цифр)"
       >
+      @if(myForm.get('phone')?.errors && myForm.get('phone')?.touched){
+        @if(myForm.get('phone')?.errors?.['pattern']){
+          <div class="error">
+            Номер телефона должен содержать 10 цифр (без пробелов и прочих символов).
+          </div>
+        }
+      }
     </div>
 
+    <!-- Согласие с условиями -->
     <div>
       <input
         type="checkbox"
@@ -80,6 +168,13 @@
         formControlName="terms"
       >
       <label for="terms">Согласен с условиями</label>
+      @if(myForm.get('terms')?.errors && myForm.get('terms')?.touched){
+        @if(myForm.get('terms')?.errors?.['required'] || myForm.get('terms')?.errors?.['requiredTrue']){
+          <div class="error">
+            Необходимо согласиться с условиями.
+          </div>
+        }
+      }
     </div>
 
     <button type="submit">Зарегистрироваться</button>
