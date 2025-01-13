@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-  AbstractControl,
-} from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { map, filter, scan, startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,81 +11,49 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  myForm: FormGroup;
+export class AppComponent implements OnDestroy {
+  // Создаём FormControl с типом number, допускающим null
+  numberControl = new FormControl<number | null>(0);
+  // Текущая сумма
+  currentSum = 0;
+  // Подписка для управления жизненным циклом
+  private subscription: Subscription;
 
   constructor() {
-    this.myForm = new FormGroup(
-      {
-        firstName: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-        ]),
-        lastName: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-        ]),
-        confirmPassword: new FormControl('', [Validators.required]),
-        age: new FormControl('', [Validators.required, Validators.min(18), Validators.max(65)]),
-        phone: new FormControl('', [
-          // Пример валидации: телефон из 10 цифр
-          Validators.pattern(/^[0-9]{10}$/),
-        ]),
-        // Для checkbox валидатор "requiredTrue"
-        terms: new FormControl(false, [Validators.requiredTrue]),
-      },
-      // Добавляем кастомный валидатор на совпадение паролей
-      [this.passwordMatchValidator]
-    );
-  }
+    // Подписываемся на size$, чтобы обновлять currentSum
+    this.subscription = this.size$.subscribe(value => {
+      this.currentSum = value;
+    });
+  };
 
-  // Кастомный валидатор на совпадение полей "password" и "confirmPassword"
-  passwordMatchValidator(formGroup: AbstractControl): { [key: string]: any } | null {
-    const password = formGroup.get('password');
-    const confirmPassword = formGroup.get('confirmPassword');
+  // Поток суммируемых значений
+  size$ = this.numberControl.valueChanges.pipe(
+    // Преобразуем значение в число
+    map(value => Number(value)),
+    // Фильтруем NaN значения
+    filter(value => !isNaN(value)),
+    // Складываем значения
+    scan((acc, curr) => acc + curr, 0),
+    // Начальное значение для подписчиков
+    startWith(0)
+  );
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      // Устанавливаем ошибку "passwordMismatch" для поля confirmPassword
-      confirmPassword.setErrors({ passwordMismatch: true });
-    } else if (confirmPassword?.errors?.['passwordMismatch']) {
-      // Если пароли совпали, а ошибка "passwordMismatch" до сих пор висит — убираем
-      confirmPassword.setErrors(null);
-    }
+  resetCircle() {
+    /**
+     * Ключевой трюк:
+     * - Отправляем "отрицательное" значение текущей суммы в поток.
+     *   Это сводит результат scan() к нулю (acc + (-acc) = 0).
+     * - Быстро сбрасываем поле ввода, чтобы пользователь не видел
+     *   это отрицательное число.
+     */
+    this.numberControl.setValue(-this.currentSum);
 
-    return null;
-  }
+    // Сбросим поле ввода после того, как поток успел обработать это значение
+    setTimeout(() => this.numberControl.reset(null), 0);
+  };
 
-  onSubmit(): void {
-    if (this.myForm.valid) {
-      const {
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        age,
-        phone,
-        terms,
-      } = this.myForm.value;
-
-      console.log(
-        `Имя: ${firstName}, Фамилия: ${lastName}, Email: ${email}, Пароль: ${password}, Подтверждение: ${confirmPassword}, Возраст: ${age}, Телефон: ${phone}, Условия: ${terms}`
-      );
-
-      alert(
-        `Регистрация успешна!\n` +
-        `Имя: ${firstName}\n` +
-        `Фамилия: ${lastName}\n` +
-        `Email: ${email}\n` +
-        `Возраст: ${age}\n` +
-        `Телефон: ${phone}`
-      );
-
-      this.myForm.reset();
-    } else {
-      alert('Пожалуйста, исправьте ошибки в форме.');
-    }
-  }
+  // Реализуем OnDestroy для отписки
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  };
 }
