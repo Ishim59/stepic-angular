@@ -1,24 +1,16 @@
 <div class="container">
-  <h1>Расширенная форма регистрации</h1>
-  <form #myForm='ngForm' (ngSubmit)="onSubmit(myForm)">
+  <h1>Расширенная форма регистрации (реактивная)</h1>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
     <div>
       <label for="firstName">Имя:</label>
       <input
         type="text"
         id="firstName"
-        name="firstName"
+        formControlName="firstName"
         placeholder="Введите имя"
-        ngModel
-        required
-        minlength="2"
-        #firstName="ngModel"
       >
-      @if(firstName.invalid && firstName.touched){
-        <div class="error">
-          Имя обязательно и должно содержать минимум 2 символа.
-        </div>
-      }
     </div>
 
     <div>
@@ -26,17 +18,9 @@
       <input
         type="text"
         id="lastName"
-        name="lastName"
+        formControlName="lastName"
         placeholder="Введите фамилию"
-        ngModel
-        required
-        #lastName="ngModel"
       >
-      @if(lastName.invalid && lastName.touched){
-        <div class="error">
-          Фамилия обязательна.
-        </div>
-      }
     </div>
 
     <div>
@@ -44,18 +28,9 @@
       <input
         type="email"
         id="email"
-        name="email"
+        formControlName="email"
         placeholder="Введите email"
-        ngModel
-        required
-        email
-        #email="ngModel"
       >
-      @if(email.invalid && email.touched){
-        <div class="error">
-          Пожалуйста, введите корректный email.
-        </div>
-      }
     </div>
 
     <div>
@@ -63,18 +38,9 @@
       <input
         type="password"
         id="password"
-        name="password"
+        formControlName="password"
         placeholder="Введите пароль"
-        ngModel
-        required
-        minlength="6"
-        #password="ngModel"
       >
-      @if(password.invalid && password.touched){
-        <div class="error">
-          Пароль обязателен и должен содержать минимум 6 символов.
-        </div>
-      }
     </div>
 
     <div>
@@ -82,23 +48,9 @@
       <input
         type="password"
         id="confirmPassword"
-        name="confirmPassword"
+        formControlName="confirmPassword"
         placeholder="Подтвердите пароль"
-        ngModel
-        required
-        #confirmPassword="ngModel"
       >
-      @if(confirmPassword.invalid && confirmPassword.touched){
-        <div class="error">
-          Подтверждение пароля обязательно.
-        </div>
-      }
-
-      @if(myForm.value.password !== myForm.value.confirmPassword && confirmPassword.touched){
-        <div class="error">
-          Пароли не совпадают.
-        </div>
-      }
     </div>
 
     <div>
@@ -106,19 +58,9 @@
       <input
         type="number"
         id="age"
-        name="age"
+        formControlName="age"
         placeholder="Введите возраст"
-        ngModel
-        required
-        min="18"
-        max="65"
-        #age="ngModel"
       >
-      @if(age.invalid && age.touched){
-        <div class="error">
-          Возраст обязателен и должен быть между 18 и 65.
-        </div>
-      }
     </div>
 
     <div>
@@ -126,38 +68,20 @@
       <input
         type="tel"
         id="phone"
-        name="phone"
+        formControlName="phone"
         placeholder="Введите телефон"
-        ngModel
-        pattern="^[0-9]{10}$"
-        #phone="ngModel"
       >
-      @if(phone.invalid && phone.touched){
-        <div class="error">
-          Введите корректный номер телефона (10 цифр).
-        </div>
-      }
     </div>
 
     <div>
       <input
         type="checkbox"
         id="terms"
-        name="terms"
-        ngModel
-        required
-        #terms="ngModel"
+        formControlName="terms"
       >
       <label for="terms">Согласен с условиями</label>
-      @if(terms.invalid && terms.touched){
-        <div class="error">
-          Необходимо согласиться с условиями.
-        </div>
-      }
     </div>
 
-
-    <button type="submit" [disabled]="myForm.invalid">Зарегистрироваться</button>
-
+    <button type="submit">Зарегистрироваться</button>
   </form>
 </div>
