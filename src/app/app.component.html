@@ -1,18 +1,31 @@
-<div class="container">
-  <h1>Для увеличения круга, введите число</h1>
-  <div>
-  <input
-    type="number"
-    [formControl]="numberControl"
-    placeholder="Введите число"
-  />
-  <button (click)="resetCircle()">Reset</button>
+<div class="controls">
+  <button (click)="addBlueBall()" [disabled]="isDisabled()">
+    Добавить синий шар
+  </button>
+  <button (click)="addRandomBall()" [disabled]="isDisabled()">
+    Добавить шар случайного цвета
+  </button>
+  <button (click)="reset()">Сброс</button>
+</div>
+
+<div class="wrapper">
+  <div class="container left-container">
+    <h3>Синие шары</h3>
+    @for(ball of leftBalls; track ball){
+      <div
+        class="ball"
+        [style.backgroundColor]="ball.color"
+      ></div>
+    }
   </div>
-  <!-- Анимированный круг с динамическим размером -->
-  <div
-    class="circle"
-    [style.width]="(size$ | async) + 'px'"
-    [style.height]="(size$ | async) + 'px'"
-  >
+
+  <div class="container right-container">
+    <h3>Остальные шары</h3>
+    @for(ball of rightBalls; track ball){
+      <div
+        class="ball"
+        [style.backgroundColor]="ball.color"
+      ></div>
+    }
   </div>
 </div>

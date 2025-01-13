@@ -1,59 +1,73 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { map, filter, scan, startWith, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Subject, partition } from 'rxjs';
+
+interface Ball {
+  color: string;
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ReactiveFormsModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
-  // Создаём FormControl с типом number, допускающим null
-  numberControl = new FormControl<number | null>(0);
-  // Текущая сумма
-  currentSum = 0;
-  // Подписка для управления жизненным циклом
-  private subscription: Subscription;
+export class AppComponent {
+  readonly maxBalls = 10;
+
+  leftBalls: Ball[] = [];
+  rightBalls: Ball[] = [];
+
+  // Общий поток добавления шариков
+  private addBall$ = new Subject<Ball>();
 
   constructor() {
-    // Подписываемся на size$, чтобы обновлять currentSum
-    this.subscription = this.size$.subscribe(value => {
-      this.currentSum = value;
+    // Разделяем поток на "синие" и "остальные" с помощью partition
+    const [blueBall$, otherColorBall$] = partition(
+      this.addBall$,
+      (ball) => ball.color === 'blue'
+    );
+
+    // Подписываемся на поток синих шаров и добавляем их в левый контейнер
+    blueBall$.subscribe((ball) => {
+      if (this.leftBalls.length < this.maxBalls) {
+        this.leftBalls.push(ball);
+      }
     });
-  };
 
-  // Поток суммируемых значений
-  size$ = this.numberControl.valueChanges.pipe(
-    // Преобразуем значение в число
-    map(value => Number(value)),
-    // Фильтруем NaN значения
-    filter(value => !isNaN(value)),
-    // Складываем значения
-    scan((acc, curr) => acc + curr, 0),
-    // Начальное значение для подписчиков
-    startWith(0)
-  );
+    // Подписываемся на поток остальных цветов и добавляем их в правый контейнер
+    otherColorBall$.subscribe((ball) => {
+      if (this.rightBalls.length < this.maxBalls) {
+        this.rightBalls.push(ball);
+      }
+    });
+  }
 
-  resetCircle() {
-    /**
-     * Ключевой трюк:
-     * - Отправляем "отрицательное" значение текущей суммы в поток.
-     *   Это сводит результат scan() к нулю (acc + (-acc) = 0).
-     * - Быстро сбрасываем поле ввода, чтобы пользователь не видел
-     *   это отрицательное число.
-     */
-    this.numberControl.setValue(-this.currentSum);
+  addBlueBall(): void {
+    // Отправляем синий шар в поток
+    this.addBall$.next({ color: 'blue' });
+  }
 
-    // Сбросим поле ввода после того, как поток успел обработать это значение
-    setTimeout(() => this.numberControl.reset(null), 0);
-  };
+  addRandomBall(): void {
+    // Генерируем случайный цвет и отправляем шар в поток
+    const randomColor = this.getRandomColor();
+    this.addBall$.next({ color: randomColor });
+  }
 
-  // Реализуем OnDestroy для отписки
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  };
+  reset(): void {
+    this.leftBalls = [];
+    this.rightBalls = [];
+  }
+
+  // Делаем кнопки неактивными, если один из контейнеров переполнен
+  isDisabled(): boolean {
+    return (
+      this.leftBalls.length >= this.maxBalls ||
+      this.rightBalls.length >= this.maxBalls
+    );
+  }
+
+  private getRandomColor(): string {
+    const colors = ['red', 'green', 'yellow', 'pink', 'purple', 'orange'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
 }
