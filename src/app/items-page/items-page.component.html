@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Список Постов</h1>
+
+  @if(isLoading){
+  <div class="loading">
+    Загрузка...
+  </div>
+  }
+  @if(error){
+    <div class="error">
+      {{ error }}
+    </div>
+  }
+
+  <div class="cards">
+    @for(post of posts; track post){
+      <div class="card">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+        <span>Пользователь ID: {{ post.userId }}</span>
+      </div>
+    }
+  </div>
+</div>
+
