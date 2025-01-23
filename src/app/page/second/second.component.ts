@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TotalCounterService} from "../../service/sharedService";
-import {Router} from "@angular/router";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-second',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './second.component.html',
   styleUrl: './second.component.scss'
 })
 export class SecondComponent {
   constructor(
     private totalCounterService: TotalCounterService,
-    private router: Router
   ) {}
 
   triggerIncrement() {
@@ -21,13 +22,5 @@ export class SecondComponent {
 
   triggerDecrement() {
     this.totalCounterService.decrementTotalCounter();
-  };
-
-  goToFirstPage() {
-    this.router.navigate(['/first']);
-  };
-
-  goToHomePage(){
-    this.router.navigate(['/']);
   };
 }

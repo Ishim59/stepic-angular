@@ -1,5 +1,5 @@
 <div class="container">
   <h2><h1>Сервис собирает данные с двух страниц. Общий счетчик: {{getTotalCounter()}}</h1></h2>
-  <button (click)="goToFirstPage()">First page</button>
-  <button (click)="goToSecondPage()">Second page</button>
+  <button [routerLink]="['/first']">First page</button>
+  <button [routerLink]="['/second']">Second page</button>
 </div>
