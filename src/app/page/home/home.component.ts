@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TotalCounterService} from "../../service/sharedService";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -13,10 +13,16 @@ import {RouterLink} from "@angular/router";
 })
 export class HomeComponent {
   constructor(
+    private router: Router,
     private totalCounterService: TotalCounterService,) {
   };
 
   public getTotalCounter(): number{
     return this.totalCounterService.getTotalCounter();
+  };
+
+  logOut() {
+    localStorage.setItem('isLogin', 'false');
+    this.router.navigate(['/login']);
   };
 }

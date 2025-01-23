@@ -1,4 +1,5 @@
 <div class="container">
+  <button class="out" (click)="logOut()">LOGOUT</button>
   <h2><h1>Сервис собирает данные с двух страниц. Общий счетчик: {{getTotalCounter()}}</h1></h2>
   <button [routerLink]="['/first']">First page</button>
   <button [routerLink]="['/second']">Second page</button>

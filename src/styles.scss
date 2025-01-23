@@ -77,3 +77,21 @@ h1 {
     margin: 10px 0;
   }
 }
+.container input {
+  display: block;
+  width: 80%;
+  max-width: 300px;
+  margin: 0 auto 20px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.container input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
