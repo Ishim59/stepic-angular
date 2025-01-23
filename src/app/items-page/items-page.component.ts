@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PostsService} from "../service/postsService/post.service";
 import {Post} from "../service/postsService/post.interface";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-items-page',
@@ -11,22 +11,12 @@ import {Post} from "../service/postsService/post.interface";
 })
 export class ItemsPageComponent implements OnInit{
   posts: Post[] = [];
-  isLoading: boolean = true;
-  error: string = '';
 
-  constructor(private postsService: PostsService) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.postsService.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.error = 'Произошла ошибка при загрузке данных';
-        this.isLoading = false;
-        console.error(err);
-      }
+    this.route.data.subscribe(data => {
+      this.posts = data['postsData'] || [];
     });
   }
 }
