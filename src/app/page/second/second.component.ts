@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {TotalCounterService} from "../service/sharedService";
+import {TotalCounterService} from "../../service/sharedService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-second',
@@ -9,7 +10,10 @@ import {TotalCounterService} from "../service/sharedService";
   styleUrl: './second.component.scss'
 })
 export class SecondComponent {
-  constructor(private totalCounterService: TotalCounterService) {}
+  constructor(
+    private totalCounterService: TotalCounterService,
+    private router: Router
+  ) {}
 
   triggerIncrement() {
     this.totalCounterService.incrementTotalCounter();
@@ -17,5 +21,13 @@ export class SecondComponent {
 
   triggerDecrement() {
     this.totalCounterService.decrementTotalCounter();
+  };
+
+  goToFirstPage() {
+    this.router.navigate(['/first']);
+  };
+
+  goToHomePage(){
+    this.router.navigate(['/']);
   };
 }
