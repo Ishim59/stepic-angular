@@ -1,89 +1,91 @@
-/* Общие стили */
+/*
+ * Анимированный градиентный фон + центрирование по всей странице
+ */
 body {
   font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 
-  /* Анимированный градиентный фон */
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
 
+  /* Центрируем .container */
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
 }
 
 /* Ключевые кадры для анимации фона */
 @keyframes gradientAnimation {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Контейнер для центрирования содержимого */
+/*
+ * Основной контейнер, даёт "подложку" под контент
+ */
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+
+  /* Можно использовать flex/column, но здесь достаточно блочной структуры */
+  display: block;
 }
 
-/* Стили для поля ввода */
-#dataInput {
-  width: 250px;
-  padding: 12px 20px;
-  margin-bottom: 20px;
-  border: 2px solid #3498db;
-  border-radius: 25px;
-  outline: none;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-  font-size: 16px;
-}
-
-#dataInput::placeholder {
-  color: #7f8c8d;
-  font-style: italic;
-}
-
-#dataInput:focus {
-  border-color: #2ecc71;
-  box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
-}
-
-/* Стили для блока сообщения */
-.message-box {
-  width: 300px;
-  padding: 20px;
-  border-radius: 15px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Заголовки секций */
+.container h2 {
+  margin-top: 0;
   text-align: center;
-  font-size: 18px;
+  font-weight: 500;
   color: #2c3e50;
-
-  /* Анимация появления */
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.message-box.show {
-  opacity: 1;
-  transform: translateY(0);
+/*
+ * Ряд кнопок: занимаем всю ширину,
+ * кнопки будут делить пространство поровну
+ */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0; /* отступ сверху/снизу между рядами */
+}
+
+.row button {
+  flex: 1;
+  /* кнопки тянутся на всю доступную ширину,
+     деля пространство поровну */
 }
 
 /* Стили для кнопок */
 button {
   background-color: #050565;
-  width: 47%;
   color: #ffffff;
   border: none;
   padding: 12px 24px;
-  margin: 10px 5px;
   border-radius: 25px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+
+  transition: background-color 0.3s ease,
+  transform 0.2s ease,
+  box-shadow 0.3s ease;
+
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -96,7 +98,35 @@ button:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-button:focus {
+button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+}
+
+/*
+ * Блок с сообщениями/значениями
+ * Будет на всю доступную ширину, но ограничим max-width
+ */
+.message-box {
+  max-width: 400px;
+  margin: 0.5rem auto; /* центрируем сами блоки */
+  padding: 16px;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  text-align: center;
+  font-size: 18px;
+  color: #2c3e50;
+
+  /* Эффект появления */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* При появлении элемента добавляем класс .show */
+.message-box.show {
+  opacity: 1;
+  transform: translateY(0);
 }

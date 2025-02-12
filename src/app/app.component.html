@@ -1,12 +1,57 @@
+<div class="container">
 
-<button (click)="increaseByOneFirstValue()">+</button>
-<button (click)="decreaseByOneFirstValue()">-</button>
-<div class="message-box show">Значение первого signal: {{firstValue()}}</div>
+  <!-- Первая секция: использование сигналов -->
+  <h2>Пример c использованием signal</h2>
 
-<button (click)="increaseByOneSecondValue()">+</button>
-<button (click)="decreaseByOneSecondValue()">-</button>
-<div class="message-box show">Значение второго signal: {{secondValue()}}</div>
+  <!-- Первая строка кнопок и вывод значения -->
+  <div class="row">
+    <button (click)="increaseByOneFirstValue()">+</button>
+    <button (click)="decreaseByOneFirstValue()">-</button>
+  </div>
+  <div class="message-box show">
+    Значение первого signal: {{ firstValue() }}
+  </div>
 
-<hr>
+  <!-- Вторая строка кнопок и вывод значения -->
+  <div class="row">
+    <button (click)="increaseByOneSecondValue()">+</button>
+    <button (click)="decreaseByOneSecondValue()">-</button>
+  </div>
+  <div class="message-box show">
+    Значение второго signal: {{ secondValue() }}
+  </div>
 
-<div class="message-box show">Значение суммы signal: {{sumOfTwoSignals()}}</div>
+  <!-- Сумма сигналов -->
+  <div class="message-box show">
+    Значение суммы signal: {{ sumOfTwoSignals() }}
+  </div>
+
+  <hr />
+
+  <!-- Вторая секция: без использования сигналов -->
+  <h2>Пример без использования signal</h2>
+
+  <!-- Первая строка кнопок и вывод значения -->
+  <div class="row">
+    <button (click)="increaseByOneFirstLocalValue()">+</button>
+    <button (click)="decreaseByOneFirstLocalValue()">-</button>
+  </div>
+  <div class="message-box show">
+    Значение первой локальной переменной: {{ firstLocalValue }}
+  </div>
+
+  <!-- Вторая строка кнопок и вывод значения -->
+  <div class="row">
+    <button (click)="increaseByOneSecondLocalValue()">+</button>
+    <button (click)="decreaseByOneSecondLocalValue()">-</button>
+  </div>
+  <div class="message-box show">
+    Значение второй локальной переменной: {{ secondLocalValue }}
+  </div>
+
+  <!-- Сумма локальных переменных -->
+  <div class="message-box show">
+    Значение суммы локальных переменных: {{ sumOfTwoLocalValue }}
+  </div>
+
+</div>

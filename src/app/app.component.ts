@@ -1,4 +1,4 @@
-import {Component, computed, OnInit, signal} from '@angular/core';
+import {Component, computed, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
@@ -10,10 +10,15 @@ import { AsyncPipe, JsonPipe, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@a
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
+
   firstValue = signal(0);
   secondValue = signal(0);
+  firstLocalValue: number = 0;
+  secondLocalValue: number = 0;
+
   sumOfTwoSignals = computed(() => this.firstValue() + this.secondValue());
+  sumOfTwoLocalValue: number = this.firstLocalValue + this.secondLocalValue;
 
 
   public increaseByOneFirstValue(): void {
@@ -31,4 +36,21 @@ export class AppComponent {
   public decreaseByOneSecondValue(): void {
     this.secondValue.update((value)=> value - 1)
   };
+
+  /////// Используем ниже локальную переменную ///////
+  increaseByOneFirstLocalValue() {
+    this.firstLocalValue++
+  }
+
+  decreaseByOneFirstLocalValue() {
+    this.firstLocalValue--
+  }
+
+  increaseByOneSecondLocalValue() {
+    this.secondLocalValue++
+  }
+
+  decreaseByOneSecondLocalValue() {
+    this.secondLocalValue--
+  }
 }
