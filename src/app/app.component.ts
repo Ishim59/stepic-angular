@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { Observable, Subscription, interval } from "rxjs";
-import { map } from "rxjs/operators";
+import { of, range } from "rxjs";
+
 
 @Component({
   selector: 'app-root',
@@ -12,31 +12,25 @@ import { map } from "rxjs/operators";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  subscription: Subscription | null = null;
+  stream$ = of(1,2,3,4,5,6,7,8,9);
+  streamRange$ = range(1, 1000)
 
-  // Используем оператор interval для создания потока
-  stream$: Observable<string> = interval(1000).pipe(
-    map(counter => `stream ${counter}`)
-  );
+  startStreamRange(){
+    this.streamRange$.subscribe(stream => {
+      console.log('stream range', stream);
+    });
+  }
 
   public startStream(): void {
-    if (!this.subscription) { // Предотвращаем множественные подписки
-      this.subscription = this.stream$.subscribe({
-        next: (data) => console.log(data),
-        error: (err) => console.error('Ошибка потока:', err),
-        complete: () => console.log('Поток завершен')
-      });
-      console.log('Поток запущен');
-    }
+     this.stream$.subscribe(stream => {
+      console.log('stream of', stream);
+    });
   }
 
   public stopStream(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null;
-      console.log('Поток остановлен');
-    } else {
-      console.log('Нет активного потока для остановки');
-    }
+    alert(
+      'Синхронные конечные Observable (of, range) мгновенно эмитят все значения ' +
+      'и завершаются. Отписка на такие потоки уже не повлияет.'
+    )
   }
 }
